@@ -1,25 +1,26 @@
-# About Project :
+# Introduction to styled components :
 
-- we have to make a project for a hotel. It is an internal used app for a hotel, to have data about occupied cabins, bookings, check in and out etc. This app will be used by hotel employees only, it is not open for public to book their rooms. 
+- Styled Components essentially allow us to write CSS right inside our JavaScript component files.
 
-# Project Setup :
+- npm i styled-components.
 
-- create project, install dependencies, configure eslint and copy starter files. 
+- let's say that we want to style an H1 element. And so we just write "styled.h1". And then here we write a template literal which is basically the string in which we are going to write our styles. And this is just a nice trick that leverages the ES6 feature called Tagged Template Literals.
 
-- this time we have some more folders in src : 
+- these styled components are indeed reacct components, that's why they need to start with uppercase letters.
 
-1. data = it is for data used in the project.
+- so bts, styled components library gives random class names to that element and apply those styles with that classname. 
 
-2. features = contains the project 6 main features.
+- And so what's great about this is that that this CSS that we just wrote is of course only scoped to that exact component, which eliminates all the problems of global CSS that we talked about earlier such as name collisions between class names etc.
 
-3. hooks = it is for truly reusable custom hooks, so custom hooks which we need in multiple features.
+- we can style basic html elements like button, input etc. also we can style react components like App. for that we have to style that div. 
 
-4. services = contains api interaction code.
+- now another great thing about these styled components is that we can pass event handlers and also props in the components, like onClick in button and type or placeholder in input.
 
-5. styles = for things regarding css.
 
-6. ui = it is for components that do not belong to any of the features and that might be reusable in different features. so things like inputs, buttons, forms, tables etc.
+# Using Global Styles :
 
-7. utils = some helpful functions.
+- create a file for global files and use createGlobalStyles function for it. inside that template literal write all the global style you want.
 
-8. pages = since this project will be a lot bigger it is actually going to be helpful to have one folder which contains all the pages. So basically, here, we will have one component file per route, and what's important about these, so one convention that we create for ourselves is that each of these pages will not have any side effects, but instead, they will delegate all their functionality to the components that are associated with the feature. So basically, we just need to create these pages once, and then completely forget about them, but of course, more about that once we actually start writing the code. 
+- now to use these styles, let say want to use it in App component, so always use your global styles component as a sibling to the component you want to apply yht global styles, and this global styles component accept sno children so it is a self closing tag. 
+
+- css variables used in styles are called design tokens. 
