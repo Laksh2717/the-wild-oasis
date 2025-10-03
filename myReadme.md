@@ -1,30 +1,35 @@
-# Setting up routes for our project :
+# Building App Layout :
 
-- npm i react-router-dom.
+- we want our layout to cover all paths except login and page not found. so make changes in routes accordingly.
 
-- clear App component and lets start setting our routes. this time we will not be using data loading feature of react router, so we will use traditional way of declaring routes.
+- in our layout, we will have a sidebar, a header and the content of other pages.
 
-- also this time we will have dashboard component only in the root route also. so whenever we have this type of thing, we can apply root route in 2 ways :
+- so we first have the below code in app layout :
 
-1. `<Route index element={<Navigate replace to="dashboard" />} />`
-2. `<Route index element={<Dashboard />} />`
+  `<div>`
+    `<Header />`
+    `<Sidebar />`
+    `<main>`
+      `<Outlet />`
+    `</main>`
+   `</div>`
 
-# Case 1: Using <Navigate replace /> (The Correct Method)
+- we wrote Outlet inside main and not directly Outlet without main because of 2 reasons : 
 
-- Action: It replaces the current entry in the browser's history.
+1. consistency in styling. if we want all the pages to get some styles in common, we will just directly apply those styles to this main. 
 
-- History Stack Example: [Previous Site, /] becomes [Previous Site, /dashboard]. The / entry is removed.
+2. join content from pages. you can see in account page, we are returning a fragment, so that complete fragment will be joined in this main html element. so sometimes from pages we want to return multiple components but want them to be inside one element only, so directly return fragment and write outlet inside some html element.
 
-- Back Button Behavior: When the user clicks "Back" from /dashboard, they go to the Previous Site.
+- then we just styled main to Main, div to StyledAppLayout, header and sidebar component. 
 
-- Result: A clean, predictable user experience. The back button works as expected, and the user is not trapped.
+# Building sidebar and main navigation :
 
-# Case 2: Using <Navigate /> without replace i.e. just passing component (Incorrect Method)
+- so include Logo and MainNav in sidebar. Now there was an error in displaying the image of logo, so to correct it, you can do 2 things : either place all the images in public folder so that the starter code works properly, or just import imagesrc like the one which is in the code.
 
-- Action: It pushes a new entry onto the browser's history stack, keeping the old one.
+- now about mainNav, we will use react router NavLink for navigations, so now the problem is how can we style this NavLink in styled components as it is coming from third party library. 
 
-- History Stack Example: [Previous Site, /] becomes [Previous Site, /, /dashboard].
+- so the solution for it is instead of using styles dot html element, we can pass in basically some other component, so here we pass in NavLink.
 
-- Back Button Behavior: When the user clicks "Back" from /dashboard, they are sent to /.
+- now we want to use some icons, so "npm i react-icons". 
 
-- Result: The app immediately redirects from / back to /dashboard, creating a redirect loop. The user gets stuck and cannot easily leave the site.
+- so go to react icons docs, for selection of icons, and then just import them to your code and use them as a component as u can see in code. 
