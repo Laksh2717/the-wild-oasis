@@ -1,35 +1,17 @@
-# Building App Layout :
+# BACKEND WITH SUPABASE :
 
-- we want our layout to cover all paths except login and page not found. so make changes in routes accordingly.
+- create a new project and then create tables for your project. 
 
-- in our layout, we will have a sidebar, a header and the content of other pages.
+- the id field in cabins and guests table are normal keys, while cabinId and guestId in bookings table are foriegn keys.
 
-- so we first have the below code in app layout :
+- know about RLS policies. 
 
-  `<div>`
-    `<Header />`
-    `<Sidebar />`
-    `<main>`
-      `<Outlet />`
-    `</main>`
-   `</div>`
+- now you can refer to api docs for connecting supabase with react.
 
-- we wrote Outlet inside main and not directly Outlet without main because of 2 reasons : 
+- npm i @supabase/supabase-js
 
-1. consistency in styling. if we want all the pages to get some styles in common, we will just directly apply those styles to this main. 
+- make supabase.js file. 
 
-2. join content from pages. you can see in account page, we are returning a fragment, so that complete fragment will be joined in this main html element. so sometimes from pages we want to return multiple components but want them to be inside one element only, so directly return fragment and write outlet inside some html element.
+- for testing purpose, create a function getCabins in Cabin page, and you will see that it is working perfectly fine.
 
-- then we just styled main to Main, div to StyledAppLayout, header and sidebar component. 
-
-# Building sidebar and main navigation :
-
-- so include Logo and MainNav in sidebar. Now there was an error in displaying the image of logo, so to correct it, you can do 2 things : either place all the images in public folder so that the starter code works properly, or just import imagesrc like the one which is in the code.
-
-- now about mainNav, we will use react router NavLink for navigations, so now the problem is how can we style this NavLink in styled components as it is coming from third party library. 
-
-- so the solution for it is instead of using styles dot html element, we can pass in basically some other component, so here we pass in NavLink.
-
-- now we want to use some icons, so "npm i react-icons". 
-
-- so go to react icons docs, for selection of icons, and then just import them to your code and use them as a component as u can see in code. 
+- create 2 storage buckets : avatars and cabin-images.
