@@ -1,25 +1,23 @@
-isLoading is now called isPending
+# start coding with react query.
 
-cacheTime option is now called gcTime
+- So first we create a place where the data basically lives and then second, we provide that to the application. And in the case of React Query, we set up the cache and the Query client using "new QueryClient."
 
-# Intro to react query. 
+- So we can specify here the default options. And then usually what we want is to specify options for our queries. And so here, one that we can experiment with is called "staleTime". And "staleTime" is basically the amount of time that the data in the cache will stay fresh so that it will stay valid until it is refetched again.
 
-- npm i @tanstack/react-query
-- npm i @tanstack/react-query-devtools
+- And so now it's time to provide this to the application. And we want to provide our Query data to the entire application tree. And so we make this basically a parent component of our entire tree. So a similar idea of having the data in one place and then providing it to the whole component tree.
 
-- React Query is essentially a very powerful library for managing remote state. So, state that is basically stored on a server and that we need to load into our application.
+- queryKey is going to uniquely identify the data that we will query by that hook and it needs to be an array. if we now use that same key in another page, then the same data will be read from the cache now. and also in the react query devtools, you will see data with this name only.
 
-- So, the most fundamental thing about React Query is that all remote state is cached, which means that the fetched data will be stored in order to be reused in different points of the application.
+- queryfn is the function which is responsible for quering. the function that we specify here needs to return a promise. so we will use getCabins func, which returns a promise and which returns data whe resolved.
 
-- So, for example, if we fetch data about cabins in Component A, React Query will fetch the data from the API. It will then store the received data in the cache, so that Component A can use it. And then if at a later point, Component B also wants to fetch the cabin data, then no additional API request will be necessary. Instead, React Query will simply provide this same data to Component B from the cache.
+- now u can print the usequery hook response and u will see a bunch of things there, like data, error, isLoading, status. 
 
-- React Query also automatically gives us all loading and error states, so that we can actually focus on what matters. 
+- now in react query devtools, you can see fresh and stale data, our data will stay frsh for the staletime that we specify in usequery. so once a data gets stale, and you then go to different tab or window or some other app, and then come back it will automatically refetch the data and show you the current data, so if a user changes some data, it will be updated for all the users. that's why we keep staletime to 0, so that it automatically gets staled so that we can get updated data as we refresh or come to the page from some other page. bcoz if it is fresh at that time, and u change some data, and then come to that page from some other page, then it will not be updated, it will only re fetch and update data if it is stale.
 
-- React Query also automatically refetches the data in certain situations. For example, after a certain timeout or after we leave the browser window and then come back to it. And this is super important-- in order to make sure that a remote state always stays in sync with the application. For example, if some other user of the app changes the remote state at some point, for example, by updating a cabin, then the application running on all other computers will have this cabin state out of sync with the newly updated state. And so, React Query can help with this as well. So, keeping everything in sync by automatically refetching data. 
+- we use usemutation hook to mutate remote state i.e. data on server
 
-- Now, besides refetching, we can also prefetch data, which basically means to fetch data that we know will become necessary later, but before it is actually displayed on the screen. And a classic example of this is pagination, where with prefetching, we can fetch data not only for the current page, but also for the next page. This way, when the user then moves to the next page, the data will always already be there in the cache. So, without needing to display an annoying loading spinner. It's also very easy to mutate. So, to update remote state using the many tools that are built into React Query. 
+- usemutation provides us a callback fn which we can attach to onclick prop. then that mutate fn will call the mutationfn defined in usemutation. you will see that after writing this code, if u delete (also give delete access in RLS policies) some cabin, then it will not remove that cabin from ui, you have to refresh to see changes. it is due to cache. so we want to remove cache as soon as we delete a cabin and also re fetch data i.e. invalidate current data. 
 
-- Now, besides all this, there are many other features that we could talk about here, but one that I find really useful is support for when the user becomes offline. So, in this situation, since the data is already cached as the user moves around in the app while being offline, Components A and B can still be displayed using this cached cabin data. Okay. 
+- now to invalidate query data, we want queryclient, so to get that queryclient we will use usequeryclient hook. 
 
-- Now, remember that as we learned earlier, we need a library with all these features because remote state is fundamentally different from UI state. It's asynchronous and usually shared by many users of the app, which makes it so that applications running in different browsers can very easily get out of sync with the remote data that is stored on a server. So, remote state has many special needs, and so that's the reason why we use something like React Query. Now, there are actually other libraries that do many of the things that React Query does. For example, SWR or Redux Toolkit Query.
-
+- next we will use toasts to display nice toasts.
